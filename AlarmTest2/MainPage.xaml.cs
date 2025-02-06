@@ -20,5 +20,10 @@ public partial class MainPage : ContentPage
 
 		SemanticScreenReader.Announce(CounterBtn.Text);
 	}
+
+	private void OnTimedNotifClicked(object sender, EventArgs e)
+	{
+		//TODO: Implement the timed notification
+	}
 }
 
