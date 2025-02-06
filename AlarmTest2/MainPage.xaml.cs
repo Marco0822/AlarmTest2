@@ -1,4 +1,8 @@
-﻿namespace AlarmTest2;
+﻿#if ANDROID
+using AlarmTest2.Platforms.Android;
+#endif
+
+namespace AlarmTest2;
 
 public partial class MainPage : ContentPage
 {
@@ -16,6 +20,15 @@ public partial class MainPage : ContentPage
             var eventData = (NotificationEventArgs)eventArgs;
         };
 	}
+
+#if ANDROID
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        PermissionStatus status = await Permissions.RequestAsync<NotificationPermission>();
+    }
+#endif
 
 	private void OnCounterClicked(object sender, EventArgs e)
 	{
