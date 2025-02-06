@@ -3,10 +3,18 @@
 public partial class MainPage : ContentPage
 {
 	int count = 0;
+	int notificationNumber = 0;
+	INotificationManagerService notificationManager;
 
-	public MainPage()
+	public MainPage(INotificationManagerService manager)
 	{
 		InitializeComponent();
+		this.notificationManager = manager;
+
+		notificationManager.NotificationReceived += (sender, eventArgs) =>
+        {
+            var eventData = (NotificationEventArgs)eventArgs;
+        };
 	}
 
 	private void OnCounterClicked(object sender, EventArgs e)
@@ -23,7 +31,12 @@ public partial class MainPage : ContentPage
 
 	private void OnTimedNotifClicked(object sender, EventArgs e)
 	{
-		//TODO: Implement the timed notification
+		notificationNumber++;
+        string title = $"Local Alarm #{notificationNumber}";
+        //string message = $"You have now received {notificationNumber} notifications!";
+		string message = $"Your alarm is ringing!";
+		Console.WriteLine("TimeEntry.Text: " + TimeEntry.Text);
+		notificationManager.SendNotification(title, message, DateTime.Now.AddSeconds(Convert.ToInt32(TimeEntry.Text)));
 	}
 }
 

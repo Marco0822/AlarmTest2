@@ -19,6 +19,10 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
+#if IOS
+		builder.Services.AddSingleton<INotificationManagerService, Platforms.iOS.NotificationManagerService>();
+#endif
+		builder.Services.AddSingleton<MainPage>();
 		return builder.Build();
 	}
 }
